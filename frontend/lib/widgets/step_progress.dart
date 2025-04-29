@@ -14,7 +14,10 @@ class StepProgress extends StatelessWidget {
           height: 5,
           margin: const EdgeInsets.symmetric(horizontal: 2),
           decoration: BoxDecoration(
-            color: index < currentStep ? Colors.cyan : Colors.grey.shade300,
+            color:
+                index < currentStep
+                    ? const Color(0xFF01F9C6)
+                    : Colors.grey.shade300,
             borderRadius: BorderRadius.circular(2),
           ),
         );

@@ -16,7 +16,7 @@ class _HealthyHabitsScreenState extends State<HealthyHabitsScreen> {
     "🥦 Eat more vegetables",
     "⛹️ Workout more",
     "🥩 Eat more protein",
-    "📱 Track calories",
+    "📱 Track calorie",
     "💧 Drink more water",
     "😓 I’m not sure",
   ];

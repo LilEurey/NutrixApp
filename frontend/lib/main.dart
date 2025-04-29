@@ -4,6 +4,8 @@ import 'screens/user_info_screen.dart';
 import 'screens/physical_stats_screen.dart';
 import 'screens/weekly_goal_screen.dart';
 import 'screens/create_account_screen.dart';
+import 'screens/profile.dart';
+import 'screens/account.dart';
 
 void main() {
   runApp(const NutrixApp());
@@ -20,14 +22,19 @@ class NutrixApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         scaffoldBackgroundColor: Colors.white,
       ),
+
       initialRoute: '/',
+
       routes: {
         '/': (context) => const LoginScreen(),
         '/userinfo': (context) => const UserInfoScreen(),
         '/physical': (context) => const PhysicalStatsScreen(),
         '/goal': (context) => const WeeklyGoalScreen(),
-        '/account': (context) => const CreateAccountScreen(), //ex
+        '/account': (context) => const CreateAccountScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/paccount': (context) => const AccountScreen(),
       },
+
       debugShowCheckedModeBanner: false,
     );
   }

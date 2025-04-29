@@ -23,19 +23,18 @@ class NutrixApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
       ),
 
-      // Start the app on the Profile screen:
-      initialRoute: '/profile',
+      initialRoute: '/',
 
       routes: {
-        '/':         (context) => const LoginScreen(),
+        '/': (context) => const LoginScreen(),
         '/userinfo': (context) => const UserInfoScreen(),
         '/physical': (context) => const PhysicalStatsScreen(),
-        '/goal':     (context) => const WeeklyGoalScreen(),
-        '/account':  (context) => const CreateAccountScreen(),
-        '/profile':  (context) => const ProfileScreen(),
-        '/paccount':  (context) => const AccountScreen(),
+        '/goal': (context) => const WeeklyGoalScreen(),
+        '/account': (context) => const CreateAccountScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/paccount': (context) => const AccountScreen(),
       },
- 
+
       debugShowCheckedModeBanner: false,
     );
   }

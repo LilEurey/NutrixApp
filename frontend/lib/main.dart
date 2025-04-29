@@ -23,6 +23,7 @@ class NutrixApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginScreen(),
+        '/userinfo': (context) => const UserInfoScreen(),
         '/physical': (context) => const PhysicalStatsScreen(),
         '/goal': (context) => const WeeklyGoalScreen(),
         '/account': (context) => const CreateAccountScreen(), //ex

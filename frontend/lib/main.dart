@@ -11,6 +11,8 @@ import 'screens/Barriers_screen.dart';
 import 'screens/planmeal_seq_screen.dart';
 import 'screens/activity_screen.dart';
 import 'screens/healthy_habits_screen.dart';
+import 'screens/profile.dart';
+import 'screens/account.dart';
 
 void main() {
   runApp(const NutrixApp());
@@ -28,7 +30,9 @@ class NutrixApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         fontFamily: 'Poppins',
       ),
+
       initialRoute: '/',
+
       routes: {
         '/': (context) => const LoginScreen(),
         '/userinfo': (context) => const UserInfoScreen(),
@@ -40,7 +44,10 @@ class NutrixApp extends StatelessWidget {
         '/frequency': (context) => const PlanmealSeqScreen(),
         '/activity': (context) => const ActivityScreen(),
         '/healthy': (context) => const HealthyHabitsScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/paccount': (context) => const AccountScreen(),
       },
+
       debugShowCheckedModeBanner: false,
     );
   }

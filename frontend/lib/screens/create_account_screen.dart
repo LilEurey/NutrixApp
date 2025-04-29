@@ -18,7 +18,21 @@ class CreateAccountScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              const StepProgress(currentStep: 5),
+              // GOALS Label + Progress
+              Column(
+                children: [
+                  const Text(
+                    'GOALS',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const StepProgress(currentStep: 6), // 👈 current step is 6
+                ],
+              ),
               const SizedBox(height: 32),
               const Text(
                 'Almost done! Create your account.',
@@ -56,9 +70,10 @@ class CreateAccountScreen extends StatelessWidget {
               const Spacer(),
               NavigationButtons(
                 onNext: () {
-                  // Submit
+                  // Handle submit action here
                 },
               ),
+              const SizedBox(height: 16),
             ],
           ),
         ),

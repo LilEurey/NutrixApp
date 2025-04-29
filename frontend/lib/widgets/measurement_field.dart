@@ -4,11 +4,12 @@ class MeasurementField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final String unit;
+
   const MeasurementField({
+    super.key,
     required this.controller,
     required this.label,
     required this.unit,
-    super.key,
   });
 
   @override
@@ -35,7 +36,7 @@ class MeasurementField extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
-                color: Colors.cyan,
+                color: const Color(0xFF00E0C6), // bright teal
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(

@@ -29,7 +29,21 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              const StepProgress(currentStep: 4),
+              // GOALS label + step progress
+              Column(
+                children: [
+                  const Text(
+                    'GOALS',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const StepProgress(currentStep: 5),
+                ],
+              ),
               const SizedBox(height: 32),
               const Text(
                 'What is your weekly goal?',
@@ -42,14 +56,17 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
                   child: GestureDetector(
                     onTap: () => setState(() => selectedGoal = goal),
                     child: Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 14,
+                      ),
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
+                        color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                           color:
                               selectedGoal == goal
-                                  ? Colors.teal
+                                  ? const Color(0xFF008080)
                                   : Colors.transparent,
                           width: 2,
                         ),
@@ -67,7 +84,7 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
                                 : Icons.check_box_outline_blank,
                             color:
                                 selectedGoal == goal
-                                    ? Colors.teal
+                                    ? const Color(0xFF008080)
                                     : Colors.black38,
                           ),
                         ],
@@ -80,6 +97,7 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
               NavigationButtons(
                 onNext: () => Navigator.pushNamed(context, '/account'),
               ),
+              const SizedBox(height: 16),
             ],
           ),
         ),

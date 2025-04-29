@@ -25,7 +25,21 @@ class _PhysicalStatsScreenState extends State<PhysicalStatsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              const StepProgress(currentStep: 3),
+              // GOALS label + progress bar
+              Column(
+                children: [
+                  const Text(
+                    'GOALS',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const StepProgress(currentStep: 4),
+                ],
+              ),
               const SizedBox(height: 32),
               const Text(
                 'Just a few more questions',
@@ -51,8 +65,13 @@ class _PhysicalStatsScreenState extends State<PhysicalStatsScreen> {
               ),
               const Spacer(),
               NavigationButtons(
-                onNext: () => Navigator.pushNamed(context, '/goal'),
+                onNext:
+                    () => Navigator.pushNamed(
+                      context,
+                      '/goal',
+                    ), // update if needed
               ),
+              const SizedBox(height: 16),
             ],
           ),
         ),

@@ -14,6 +14,7 @@ import 'screens/activity_screen.dart';
 import 'screens/healthy_habits_screen.dart';
 import 'screens/profile.dart';
 import 'screens/account.dart';
+import 'screens/fillname.dart';
 
 void main() {
   runApp(const NutrixApp());
@@ -48,6 +49,7 @@ class NutrixApp extends StatelessWidget {
         '/healthy': (context) => const HealthyHabitsScreen(),
         '/profile': (context) => const ProfileScreen(),
         '/paccount': (context) => const AccountScreen(),
+        '/fillname': (context) => const FillNameScreen(),
       },
 
       debugShowCheckedModeBanner: false,

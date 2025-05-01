@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/healthy_habits_screen.dart';
 import 'package:frontend/screens/home/home_screen.dart';
+import 'package:frontend/screens/progress_screen.dart';
 import 'package:frontend/screens/user_goal_screen.dart';
 import 'package:frontend/screens/viewmore.dart';
 import 'package:frontend/screens/welcomepage.dart';
@@ -54,6 +55,7 @@ class NutrixApp extends StatelessWidget {
         '/profile': (context) => const ProfileScreen(),
         '/paccount': (context) => const AccountScreen(),
         '/fillname': (context) => const FillNameScreen(),
+        '/progress': (context) => const ProgressScreen(),
       },
 
       debugShowCheckedModeBanner: false,

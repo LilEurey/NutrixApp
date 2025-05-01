@@ -25,27 +25,29 @@ class _PhysicalStatsScreenState extends State<PhysicalStatsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              // GOALS label + progress bar
-              Column(
-                children: [
-                  const Text(
-                    'GOALS',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                    ),
+
+              // GOALS label and step progress
+              const Center(
+                child: Text(
+                  'GOALS',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
                   ),
-                  const SizedBox(height: 12),
-                  const StepProgress(currentStep: 4),
-                ],
+                ),
               ),
+              const SizedBox(height: 12),
+              const StepProgress(currentStep: 8), // ✅ Updated progress
+
               const SizedBox(height: 32),
+
               const Text(
                 'Just a few more questions',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 24),
+
               MeasurementField(
                 controller: heightController,
                 label: 'What is your height?',
@@ -63,14 +65,17 @@ class _PhysicalStatsScreenState extends State<PhysicalStatsScreen> {
                 label: 'What is your goal weight?',
                 unit: 'kg',
               ),
+
               const Spacer(),
+
               NavigationButtons(
                 onNext:
                     () => Navigator.pushNamed(
                       context,
                       '/goal',
-                    ), // update if needed
+                    ), // ✅ Update if needed
               ),
+
               const SizedBox(height: 16),
             ],
           ),

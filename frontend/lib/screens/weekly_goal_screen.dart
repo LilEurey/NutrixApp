@@ -41,7 +41,7 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const StepProgress(currentStep: 5),
+                  const StepProgress(currentStep: 9),
                 ],
               ),
               const SizedBox(height: 32),

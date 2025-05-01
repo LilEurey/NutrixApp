@@ -30,7 +30,7 @@ class CreateAccountScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const StepProgress(currentStep: 6), // 👈 current step is 6
+                  const StepProgress(currentStep: 10),
                 ],
               ),
               const SizedBox(height: 32),

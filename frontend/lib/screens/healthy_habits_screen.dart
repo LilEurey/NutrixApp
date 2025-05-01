@@ -54,7 +54,7 @@ class _HealthyHabitsScreenState extends State<HealthyHabitsScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const StepProgress(currentStep: 5),
+                  const StepProgress(currentStep: 4),
                 ],
               ),
               const SizedBox(height: 24),

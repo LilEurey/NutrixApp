@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/healthy_habits_screen.dart';
 import 'package:frontend/screens/user_goal_screen.dart';
-import 'screens/auth/login_screen.dart';
+import 'package:frontend/screens/welcomepage.dart';
+import 'screens/auth/auth_choice.dart';
 import 'screens/user_info_screen.dart';
 import 'screens/physical_stats_screen.dart';
 import 'screens/weekly_goal_screen.dart';
@@ -34,7 +35,8 @@ class NutrixApp extends StatelessWidget {
       initialRoute: '/',
 
       routes: {
-        '/': (context) => const LoginScreen(),
+        '/': (context) => const WelcomeScreen(),
+        '/authchoice': (context) => const AuthChoiceScreen(),
         '/userinfo': (context) => const UserInfoScreen(),
         '/physical': (context) => const PhysicalStatsScreen(),
         '/goal': (context) => const WeeklyGoalScreen(),

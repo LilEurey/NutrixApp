@@ -9,9 +9,7 @@ class FillNameScreen extends StatefulWidget {
 }
 
 class _FillNameScreenState extends State<FillNameScreen> {
-  final TextEditingController nameController = TextEditingController(
-    text: 'Drive',
-  );
+  final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

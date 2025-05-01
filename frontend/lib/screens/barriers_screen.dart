@@ -10,7 +10,7 @@ class BarriersScreen extends StatefulWidget {
 }
 
 class _BarriersScreenState extends State<BarriersScreen> {
-  final List<String> selectedGoals = []; // <-- allow multiple selections
+  final List<String> selectedGoals = [];
 
   final goals = [
     'Lack of time',
@@ -41,9 +41,11 @@ class _BarriersScreenState extends State<BarriersScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
+
+              // GOALS label and step progress
               Column(
-                children: [
-                  const Text(
+                children: const [
+                  Text(
                     'GOALS',
                     style: TextStyle(
                       fontSize: 16,
@@ -51,21 +53,28 @@ class _BarriersScreenState extends State<BarriersScreen> {
                       letterSpacing: 1,
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  const StepProgress(currentStep: 5),
+                  SizedBox(height: 12),
+                  StepProgress(currentStep: 3), // ✅ Updated step
                 ],
               ),
+
               const SizedBox(height: 24),
+
               const Text(
                 'In the past, What were the barriers to achieving weight loss?',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
+
               const SizedBox(height: 32),
+
               const Text(
                 'Select all that apply',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                style: TextStyle(fontSize: 16),
               ),
+
               const SizedBox(height: 24),
+
+              // Multiple selection goals
               ...goals.map(
                 (goal) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
@@ -109,10 +118,15 @@ class _BarriersScreenState extends State<BarriersScreen> {
                   ),
                 ),
               ),
+
               const Spacer(),
+
               NavigationButtons(
-                onNext: () => Navigator.pushNamed(context, '/healthy'),
+                onNext: () {
+                  Navigator.pushNamed(context, '/healthy');
+                },
               ),
+
               const SizedBox(height: 16),
             ],
           ),

@@ -11,7 +11,6 @@ class UserGoalScreen extends StatefulWidget {
 
 class _UserGoalScreenState extends State<UserGoalScreen> {
   String? selectedGoal;
-
   final goals = ['lose weight'];
 
   @override
@@ -24,32 +23,38 @@ class _UserGoalScreenState extends State<UserGoalScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
+
               // GOALS label + step progress
-              Column(
-                children: [
-                  const Text(
-                    'GOALS',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                    ),
+              const Center(
+                child: Text(
+                  'GOALS',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
                   ),
-                  const SizedBox(height: 12),
-                  const StepProgress(currentStep: 5),
-                ],
+                ),
               ),
+              const SizedBox(height: 12),
+              const StepProgress(currentStep: 2), // ✅ Using shared widget
+
               const SizedBox(height: 24),
+
               const Text(
                 'Hey, Drive. Let’s start with your goals.',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
+
               const SizedBox(height: 32),
+
               const Text(
                 'Select the category that fits your goal best.',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                style: TextStyle(fontSize: 16),
               ),
+
               const SizedBox(height: 24),
+
+              // Goal selection box
               ...goals.map(
                 (goal) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
@@ -93,10 +98,15 @@ class _UserGoalScreenState extends State<UserGoalScreen> {
                   ),
                 ),
               ),
+
               const Spacer(),
+
               NavigationButtons(
-                onNext: () => Navigator.pushNamed(context, '/barriers'),
+                onNext: () {
+                  Navigator.pushNamed(context, '/barriers');
+                },
               ),
+
               const SizedBox(height: 16),
             ],
           ),

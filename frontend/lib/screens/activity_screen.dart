@@ -36,7 +36,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const StepProgress(currentStep: 5),
+                  const StepProgress(currentStep: 6),
                 ],
               ),
               const SizedBox(height: 24),

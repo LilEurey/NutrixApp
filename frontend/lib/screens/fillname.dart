@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/navigation_buttons.dart';
+import '../widgets/step_progress.dart';
 
 class FillNameScreen extends StatefulWidget {
   const FillNameScreen({super.key});
@@ -31,21 +32,8 @@ class _FillNameScreenState extends State<FillNameScreen> {
               ),
               const SizedBox(height: 8),
 
-              // Step progress bar
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(6, (index) {
-                  return Container(
-                    width: 30,
-                    height: 5,
-                    margin: const EdgeInsets.symmetric(horizontal: 2),
-                    decoration: BoxDecoration(
-                      color: index == 0 ? Colors.cyan : Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  );
-                }),
-              ),
+              // ✅ Use reusable step progress widget
+              const StepProgress(currentStep: 1),
 
               const SizedBox(height: 32),
 
@@ -97,7 +85,7 @@ class _FillNameScreenState extends State<FillNameScreen> {
 
               NavigationButtons(
                 onNext: () {
-                  Navigator.pushNamed(context, '/usergoal'); // Update as needed
+                  Navigator.pushNamed(context, '/usergoal');
                 },
               ),
 

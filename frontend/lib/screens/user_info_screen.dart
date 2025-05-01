@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/step_progress.dart';
 import '../widgets/navigation_buttons.dart';
 
 class UserInfoScreen extends StatefulWidget {
@@ -23,34 +24,21 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              // Progress bar with GOALS label
-              Column(
-                children: [
-                  const Text(
-                    'GOALS',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                    ),
+
+              // GOALS label and progress bar
+              const Center(
+                child: Text(
+                  'GOALS',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
                   ),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(6, (index) {
-                      return Container(
-                        width: 30,
-                        height: 5,
-                        margin: const EdgeInsets.symmetric(horizontal: 2),
-                        decoration: BoxDecoration(
-                          color: index < 2 ? Colors.cyan : Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      );
-                    }),
-                  ),
-                ],
+                ),
               ),
+              const SizedBox(height: 12),
+              const StepProgress(currentStep: 7), // ✅ Use reusable widget
+
               const SizedBox(height: 32),
               const Text(
                 'Tell us a bit about yourself',
@@ -62,6 +50,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                 style: TextStyle(fontSize: 14, color: Colors.black54),
               ),
               const SizedBox(height: 24),
+
               Row(
                 children: [
                   Expanded(
@@ -89,6 +78,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                   ),
                 ],
               ),
+
               const SizedBox(height: 24),
               const Text(
                 'How old are you?',
@@ -104,6 +94,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                   ),
                 ),
               ),
+
               const SizedBox(height: 24),
               const Text(
                 'Where do you live?',
@@ -130,10 +121,13 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                   });
                 },
               ),
+
               const Spacer(),
+
               NavigationButtons(
                 onNext: () => Navigator.pushNamed(context, '/physical'),
               ),
+
               const SizedBox(height: 16),
             ],
           ),

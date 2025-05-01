@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/about.dart';
+import 'package:frontend/screens/delete_account.dart';
+import 'package:frontend/screens/delete_data.dart' show DeleteDataScreen;
 import 'package:frontend/screens/healthy_habits_screen.dart';
 import 'package:frontend/screens/home/home_screen.dart';
+import 'package:frontend/screens/privacy.dart';
 import 'package:frontend/screens/progress_screen.dart';
+import 'package:frontend/screens/safety.dart';
 import 'package:frontend/screens/user_goal_screen.dart';
 import 'package:frontend/screens/viewmore.dart';
 import 'package:frontend/screens/welcomepage.dart';
@@ -58,6 +62,10 @@ class NutrixApp extends StatelessWidget {
         '/fillname': (context) => const FillNameScreen(),
         '/progress': (context) => const ProgressScreen(),
         '/about': (context) => const AboutScreen(),
+        '/safety': (context) => const SafetyScreen(),
+        '/privacy': (context) => const PrivacySettingsScreen(),
+        '/deleteaccount': (context) => const DeleteAccountScreen(),
+        '/deletedata': (context) => const DeleteDataScreen(),
       },
 
       debugShowCheckedModeBanner: false,

@@ -13,11 +13,29 @@ class WelcomeScreen extends StatelessWidget {
         },
         child: Stack(
           children: [
-            // 🔵 TOP BACKGROUND IMAGE
-            // Positioned(top: 0, left: 0, child: Image.asset('assets/images/top_bg.png'))
+            // 🔵 TOP LEFT IMAGE
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Image.asset(
+                'assets/images/topleft.png',
+                width: 200, // Adjust size as needed
+                fit: BoxFit.cover,
+              ),
+            ),
 
-            // 🔵 BOTTOM BACKGROUND IMAGE
-            // Positioned(bottom: 0, right: 0, child: Image.asset('assets/images/bottom_bg.png'))
+            // 🔵 BOTTOM RIGHT IMAGE
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Image.asset(
+                'assets/images/underright.png',
+                width: 300, // Adjust size as needed
+                fit: BoxFit.cover,
+              ),
+            ),
+
+            // 🔵 CENTER CONTENT
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -30,8 +48,8 @@ class WelcomeScreen extends StatelessWidget {
 
                   Image.asset(
                     'assets/images/nutrix_logo.png',
-                    width: 100,
-                    height: 100,
+                    width: 150,
+                    height: 150,
                   ),
 
                   const SizedBox(height: 12),

@@ -25,7 +25,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
             children: [
               const SizedBox(height: 16),
 
-              // GOALS label and progress bar
+              const SizedBox(height: 50),
+
               const Center(
                 child: Text(
                   'GOALS',

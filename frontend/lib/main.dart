@@ -4,6 +4,7 @@ import 'package:frontend/screens/delete_account.dart';
 import 'package:frontend/screens/delete_data.dart' show DeleteDataScreen;
 import 'package:frontend/screens/healthy_habits_screen.dart';
 import 'package:frontend/screens/home/home_screen.dart';
+import 'package:frontend/screens/mealsummary.dart';
 import 'package:frontend/screens/privacy.dart';
 import 'package:frontend/screens/progress_screen.dart';
 import 'package:frontend/screens/safety.dart';
@@ -23,6 +24,8 @@ import 'screens/healthy_habits_screen.dart';
 import 'screens/profile.dart';
 import 'screens/account.dart';
 import 'screens/fillname.dart';
+import 'screens/newuserhome_screen.dart';
+import 'screens/mealsummary.dart';
 
 void main() {
   runApp(const NutrixApp());
@@ -66,6 +69,8 @@ class NutrixApp extends StatelessWidget {
         '/privacy': (context) => const PrivacySettingsScreen(),
         '/deleteaccount': (context) => const DeleteAccountScreen(),
         '/deletedata': (context) => const DeleteDataScreen(),
+        '/newuser': (context) => const PersonalizedMealPlanScreen(),
+        '/summary': (context) => const MealSummaryScreen(),
       },
 
       debugShowCheckedModeBanner: false,

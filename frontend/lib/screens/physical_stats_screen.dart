@@ -24,7 +24,7 @@ class _PhysicalStatsScreenState extends State<PhysicalStatsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 16),
+              const SizedBox(height: 50),
 
               // GOALS label and step progress
               const Center(

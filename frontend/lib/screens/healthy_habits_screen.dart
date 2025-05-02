@@ -42,7 +42,7 @@ class _HealthyHabitsScreenState extends State<HealthyHabitsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 16),
+              const SizedBox(height: 50),
               Column(
                 children: [
                   const Text(

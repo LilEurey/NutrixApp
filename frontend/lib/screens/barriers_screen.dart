@@ -45,6 +45,8 @@ class _BarriersScreenState extends State<BarriersScreen> {
               // GOALS label and step progress
               Column(
                 children: const [
+                  const SizedBox(height: 50),
+
                   Text(
                     'GOALS',
                     style: TextStyle(

@@ -27,6 +27,8 @@ class _ActivityScreenState extends State<ActivityScreen> {
               // GOALS label + step progress
               Column(
                 children: [
+                  const SizedBox(height: 50),
+
                   const Text(
                     'GOALS',
                     style: TextStyle(

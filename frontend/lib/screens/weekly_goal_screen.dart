@@ -28,7 +28,7 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 16),
+              const SizedBox(height: 50),
               // GOALS label + step progress
               Column(
                 children: [

@@ -23,17 +23,18 @@ class _FillNameScreenState extends State<FillNameScreen> {
             children: [
               const SizedBox(height: 16),
 
-              // GOALS title
-              const Center(
-                child: Text(
-                  'GOALS',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
+              // GOALS Label + Step Progress with top spacing
+              Column(
+                children: [
+                  const SizedBox(height: 50),
+                  const Text(
+                    'GOALS',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  const SizedBox(height: 8),
+                  const StepProgress(currentStep: 1),
+                ],
               ),
-              const SizedBox(height: 8),
-
-              // ✅ Use reusable step progress widget
-              const StepProgress(currentStep: 1),
 
               const SizedBox(height: 32),
 

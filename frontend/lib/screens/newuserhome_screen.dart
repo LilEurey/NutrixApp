@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/bottom_navbar.dart';
 
 class PersonalizedMealPlanScreen extends StatelessWidget {
   const PersonalizedMealPlanScreen({super.key});
@@ -6,6 +7,7 @@ class PersonalizedMealPlanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const BottomNavbar(currentIndex: 1),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -13,15 +15,13 @@ class PersonalizedMealPlanScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 50),
-
               const Center(
                 child: Text(
                   'Your personalized meal plan is ready!',
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
                 ),
               ),
-
               const SizedBox(height: 32),
 
               // Four Info Cards
@@ -66,7 +66,7 @@ class PersonalizedMealPlanScreen extends StatelessWidget {
                         height: 10,
                         width:
                             MediaQuery.of(context).size.width *
-                            0.6, // 1600 / 2000 = 0.8
+                            0.6, // Adjusted for 1600 / 2000 kcal
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.greenAccent,
@@ -84,12 +84,11 @@ class PersonalizedMealPlanScreen extends StatelessWidget {
 
               const Spacer(),
 
-              // Button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Implement next step
+                    // Handle meal plan start
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -100,14 +99,10 @@ class PersonalizedMealPlanScreen extends StatelessWidget {
                   ),
                   child: const Text(
                     'Start my meal plan',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
               ),
-
               const SizedBox(height: 16),
             ],
           ),

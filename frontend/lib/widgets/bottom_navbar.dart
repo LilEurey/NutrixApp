@@ -6,7 +6,7 @@ class BottomNavbar extends StatelessWidget {
   const BottomNavbar({super.key, required this.currentIndex});
 
   void _navigate(BuildContext context, int index) {
-    final routes = ['/homescreen', '/mealplan', '/progress', '/profile'];
+    final routes = ['/homescreen', '/summary', '/progress', '/profile'];
     if (ModalRoute.of(context)?.settings.name != routes[index]) {
       Navigator.pushNamedAndRemoveUntil(
         context,

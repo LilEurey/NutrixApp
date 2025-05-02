@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/bottom_navbar.dart';
 import '../widgets/log_meal.dart';
 
 class MealSummaryScreen extends StatelessWidget {
@@ -7,15 +8,16 @@ class MealSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const BottomNavbar(currentIndex: 1),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 50),
+              const SizedBox(height: 32),
               const Text(
-                'Your meal summary for today!',
+                'Your meal summary\nfor today!',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 24),
@@ -26,7 +28,7 @@ class MealSummaryScreen extends StatelessWidget {
                 child: Row(
                   children: const [
                     MealCard(
-                      imagePath: '',
+                      imagePath: 'assets/images/meat.png',
                       kcal: 402,
                       title: 'Sliced meat',
                       protein: '7gm',
@@ -35,7 +37,7 @@ class MealSummaryScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 16),
                     MealCard(
-                      imagePath: '',
+                      imagePath: 'assets/images/milk.png',
                       kcal: 150,
                       title: 'Milk (1 cup)',
                       protein: '8gm',
@@ -48,7 +50,6 @@ class MealSummaryScreen extends StatelessWidget {
 
               const SizedBox(height: 32),
               const Divider(thickness: 1),
-
               const SizedBox(height: 16),
               const Text(
                 'Total',
@@ -59,7 +60,6 @@ class MealSummaryScreen extends StatelessWidget {
                 '552 Kcal  |  protein 15kg  |  fat 25kg  |  carbs 17kg',
                 style: TextStyle(fontSize: 15),
               ),
-
               const Spacer(),
 
               SizedBox(
@@ -73,7 +73,6 @@ class MealSummaryScreen extends StatelessWidget {
                       },
                     );
                   },
-
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF17414A),
                     shape: RoundedRectangleBorder(
@@ -87,7 +86,6 @@ class MealSummaryScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(height: 24),
             ],
           ),
@@ -147,7 +145,7 @@ class MealCard extends StatelessWidget {
             '$kcal Kcal',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF01F9C6),
+              color: Color(0xFF01F9C6),
             ),
           ),
           const SizedBox(height: 4),

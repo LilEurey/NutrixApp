@@ -21,6 +21,8 @@ class CreateAccountScreen extends StatelessWidget {
               // GOALS Label + Progress
               Column(
                 children: [
+                  const SizedBox(height: 50),
+
                   const Text(
                     'GOALS',
                     style: TextStyle(

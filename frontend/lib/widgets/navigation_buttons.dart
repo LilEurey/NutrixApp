@@ -13,22 +13,10 @@ class NavigationButtons extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: const Color(
-                  0xFF004D40,
-                ), // or 0xFF008080 if you want teal like button
-                width: 2,
-              ),
-            ),
-            child: const Icon(
-              Icons.arrow_back,
-              color: Color(0xFF004D40), // dark teal
-            ),
+          child: const Icon(
+            Icons.arrow_back,
+            size: 30,
+            color: Color(0xFF004D40),
           ),
         ),
 

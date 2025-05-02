@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/account.dart'; // import your AccountScreen
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -17,10 +16,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _weight = '62';
   String _height = '175';
 
-  // Static About Nutrix text
-  final String _aboutText =
-      'Nutrix helps you track your meals, calculate calories, and achieve your goals effortlessly.';
-
   Future<void> _editField({
     required String title,
     required String initialValue,
@@ -30,31 +25,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String temp = initialValue;
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Edit $title'),
-        content: TextFormField(
-          initialValue: temp,
-          keyboardType: keyboardType,
-          decoration: InputDecoration(hintText: title),
-          onChanged: (v) => temp = v,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: ProfileScreen.darkTeal,
+      builder:
+          (context) => AlertDialog(
+            title: Text('Edit $title'),
+            content: TextFormField(
+              initialValue: temp,
+              keyboardType: keyboardType,
+              decoration: InputDecoration(hintText: title),
+              onChanged: (v) => temp = v,
             ),
-            onPressed: () {
-              setState(() => onSaved(temp));
-              Navigator.pop(context);
-            },
-            child: const Text('Save'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ProfileScreen.darkTeal,
+                ),
+                onPressed: () {
+                  setState(() => onSaved(temp));
+                  Navigator.pop(context);
+                },
+                child: const Text('Save'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -71,16 +67,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Tappable header card (Drive)
+                    // Header
                     GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const AccountScreen(),
-                          ),
-                        );
-                      },
+                      onTap: () => Navigator.pushNamed(context, '/paccount'),
                       child: Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -91,7 +80,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             const CircleAvatar(
                               radius: 24,
-                              backgroundImage: AssetImage('assets/images/avatar.png'),
+                              backgroundImage: AssetImage(
+                                'assets/images/avatar.png',
+                              ),
                             ),
                             const SizedBox(width: 12),
                             Expanded(
@@ -123,46 +114,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(height: 12),
 
-                    // Static Gender field
                     ProfileListItem(
                       icon: Icons.people,
                       label: 'Gender',
                       value: _gender,
                     ),
-
-                    // Editable fields
                     ProfileListItem(
                       icon: Icons.cake,
                       label: 'Age',
-                      value: '$_age years',
-                      onTap: () => _editField(
-                        title: 'Age',
-                        initialValue: _age,
-                        keyboardType: TextInputType.number,
-                        onSaved: (v) => _age = v,
-                      ),
+                      value: _age,
+                      onTap:
+                          () => _editField(
+                            title: 'Age',
+                            initialValue: _age,
+                            keyboardType: TextInputType.number,
+                            onSaved: (v) => _age = v,
+                          ),
                     ),
                     ProfileListItem(
-                      icon: Icons.fitness_center,
+                      icon: Icons.monitor_weight,
                       label: 'Weight',
                       value: '$_weight kg',
-                      onTap: () => _editField(
-                        title: 'Weight (kg)',
-                        initialValue: _weight,
-                        keyboardType: TextInputType.number,
-                        onSaved: (v) => _weight = v,
-                      ),
+                      onTap:
+                          () => _editField(
+                            title: 'Weight',
+                            initialValue: _weight,
+                            keyboardType: TextInputType.number,
+                            onSaved: (v) => _weight = v,
+                          ),
                     ),
                     ProfileListItem(
                       icon: Icons.height,
                       label: 'Height',
                       value: '$_height cm',
-                      onTap: () => _editField(
-                        title: 'Height (cm)',
-                        initialValue: _height,
-                        keyboardType: TextInputType.number,
-                        onSaved: (v) => _height = v,
-                      ),
+                      onTap:
+                          () => _editField(
+                            title: 'Height',
+                            initialValue: _height,
+                            keyboardType: TextInputType.number,
+                            onSaved: (v) => _height = v,
+                          ),
                     ),
 
                     const SizedBox(height: 24),
@@ -175,34 +166,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(height: 12),
 
-                    // About Nutrix: static text dialog
                     ProfileListItem(
-                      icon: Icons.info,
+                      icon: Icons.info_outline,
                       label: 'About Nutrix',
-                      value: 'Tap to view',
+                      value: '',
                       showArrow: true,
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('About Nutrix'),
-                            content: Text(_aboutText),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text('Close'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                      onTap: () => Navigator.pushNamed(context, '/about'),
                     ),
-
-                    // Static App Version
                     ProfileListItem(
                       icon: Icons.apps,
                       label: 'App Version',
                       value: '1.0.0',
+                    ),
+                    ProfileListItem(
+                      icon: Icons.shield,
+                      label: 'Safety',
+                      value: '',
+                      showArrow: true,
+                      onTap: () => Navigator.pushNamed(context, '/safety'),
+                    ),
+                    ProfileListItem(
+                      icon: Icons.privacy_tip,
+                      label: 'Privacy',
+                      value: '',
+                      showArrow: true,
+                      onTap: () => Navigator.pushNamed(context, '/privacy'),
                     ),
 
                     const SizedBox(height: 80),
@@ -211,20 +199,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
 
-            // Close button
+            // ⬅️ Back Arrow in Circle (bottom left)
             Positioned(
               bottom: 16,
               left: 16,
               child: GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () => Navigator.pushNamed(context, '/homescreen'),
                 child: Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: ProfileScreen.darkTeal, width: 2),
+                    border: Border.all(color: Colors.blue, width: 2),
                     color: Colors.white,
                   ),
-                  child: Icon(Icons.close, color: ProfileScreen.darkTeal),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: ProfileScreen.darkTeal,
+                  ),
                 ),
               ),
             ),
@@ -243,13 +234,13 @@ class ProfileListItem extends StatelessWidget {
   final VoidCallback? onTap;
 
   const ProfileListItem({
-    super.key,
+    Key? key,
     required this.icon,
     required this.label,
     required this.value,
     this.showArrow = false,
     this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -260,9 +251,11 @@ class ProfileListItem extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (value.isNotEmpty) Text(value, style: TextStyle(color: Colors.grey[600])),
+          if (value.isNotEmpty)
+            Text(value, style: TextStyle(color: Colors.grey[600])),
           if (showArrow || onTap != null) const SizedBox(width: 8),
-          if (showArrow || onTap != null) Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+          if (showArrow || onTap != null)
+            const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
         ],
       ),
       onTap: onTap,

@@ -25,6 +25,8 @@ class _UserGoalScreenState extends State<UserGoalScreen> {
               const SizedBox(height: 16),
 
               // GOALS label + step progress
+              const SizedBox(height: 50),
+
               const Center(
                 child: Text(
                   'GOALS',

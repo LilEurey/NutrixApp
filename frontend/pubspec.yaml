@@ -54,6 +54,8 @@ flutter:
   assets:
     - assets/images/profilePic.jpg
     - assets/images/
+    - assets/images/topleft.png
+    - assets/images/underright.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

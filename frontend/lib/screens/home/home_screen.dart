@@ -2,8 +2,56 @@ import 'package:flutter/material.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/stat_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String selectedMeal = 'Breakfast';
+
+  final Map<String, List<Map<String, String>>> mealData = {
+    'Breakfast': [
+      {
+        'imageUrl': 'https://via.placeholder.com/100x100.png?text=Meat',
+        'name': 'Sliced meat',
+        'kcal': '402',
+        'protein': '7g',
+        'fat': '20g',
+        'fibre': '5g',
+      },
+      {
+        'imageUrl': 'https://via.placeholder.com/100x100.png?text=Milk',
+        'name': 'Milk (1 cup)',
+        'kcal': '150',
+        'protein': '8g',
+        'fat': '5g',
+        'fibre': '12g',
+      },
+    ],
+    'Lunch': [
+      {
+        'imageUrl': 'https://via.placeholder.com/100x100.png?text=Salad',
+        'name': 'Chicken Salad',
+        'kcal': '320',
+        'protein': '25g',
+        'fat': '10g',
+        'fibre': '8g',
+      },
+    ],
+    'Dinner': [
+      {
+        'imageUrl': 'https://via.placeholder.com/100x100.png?text=Soup',
+        'name': 'Vegetable Soup',
+        'kcal': '180',
+        'protein': '6g',
+        'fat': '3g',
+        'fibre': '4g',
+      },
+    ],
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +72,8 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
+
+              // Stat cards
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
@@ -52,29 +102,49 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 32),
+
               const Text(
                 "Today's meal",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
+
+              // Meal tabs
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Column(
-                    children: [
-                      Text(
-                        'Breakfast',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 4),
-                      CircleAvatar(radius: 3, backgroundColor: Colors.teal),
-                    ],
-                  ),
-                  Text('Lunch', style: TextStyle(color: Colors.grey)),
-                  Text('Dinner', style: TextStyle(color: Colors.grey)),
-                ],
+                children:
+                    ['Breakfast', 'Lunch', 'Dinner'].map((meal) {
+                      final isSelected = selectedMeal == meal;
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() => selectedMeal = meal);
+                        },
+                        child: Column(
+                          children: [
+                            Text(
+                              meal,
+                              style: TextStyle(
+                                fontWeight:
+                                    isSelected
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                color: isSelected ? Colors.black : Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            if (isSelected)
+                              const CircleAvatar(
+                                radius: 3,
+                                backgroundColor: Colors.teal,
+                              ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
               ),
               const SizedBox(height: 16),
+
+              // For you row
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -94,30 +164,25 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
+
+              // Meals list
               SizedBox(
                 height: 210,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    _buildMealCard(
-                      imageUrl:
-                          'https://via.placeholder.com/100x100.png?text=Meat',
-                      name: 'Sliced meat',
-                      kcal: '402',
-                      protein: '7g',
-                      fat: '20g',
-                      fibre: '5g',
-                    ),
-                    _buildMealCard(
-                      imageUrl:
-                          'https://via.placeholder.com/100x100.png?text=Milk',
-                      name: 'Milk (1 cup)',
-                      kcal: '150',
-                      protein: '8g',
-                      fat: '5g',
-                      fibre: '12g',
-                    ),
-                  ],
+                  children:
+                      mealData[selectedMeal]!
+                          .map(
+                            (meal) => _buildMealCard(
+                              imageUrl: meal['imageUrl']!,
+                              name: meal['name']!,
+                              kcal: meal['kcal']!,
+                              protein: meal['protein']!,
+                              fat: meal['fat']!,
+                              fibre: meal['fibre']!,
+                            ),
+                          )
+                          .toList(),
                 ),
               ),
             ],
@@ -127,7 +192,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  static Widget _buildMealCard({
+  Widget _buildMealCard({
     required String imageUrl,
     required String name,
     required String kcal,

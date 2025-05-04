@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../models/user_model.dart';
 import '../../services/user_service.dart';
@@ -21,7 +21,6 @@ class AuthChoiceScreen extends StatelessWidget {
               : GoogleSignIn();
 
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-
       if (googleUser == null) {
         print('User cancelled sign-in');
         return;
@@ -45,7 +44,6 @@ class AuthChoiceScreen extends StatelessWidget {
         if (userExists) {
           Navigator.pushReplacementNamed(context, '/homescreen');
         } else {
-          // Save minimal user info now
           await saveInitialUser(firebaseUser);
           Navigator.pushReplacementNamed(context, '/fillname');
         }
@@ -82,6 +80,29 @@ class AuthChoiceScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          // 🟢 TOP LEFT IMAGE
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Image.asset(
+              'assets/images/topleft.png',
+              width: 200,
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          // 🟢 BOTTOM RIGHT IMAGE
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/images/underright.png',
+              width: 300,
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          // 🟢 CENTER CONTENT
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

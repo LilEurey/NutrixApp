@@ -55,16 +55,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String selectedMeal = 'Breakfast';
   String username = '';
-
+  double weightKg = 0.0;
+  double goalWeightKg = 0.0;
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _loadUsername();
+    _loadUserData();
   }
 
-  Future<void> _loadUsername() async {
+  Future<void> _loadUserData() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 
@@ -77,6 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
     if (data != null) {
       setState(() {
         username = data['username'] ?? '';
+        weightKg = (data['weight_kg'] ?? 0).toDouble();
+        goalWeightKg = (data['goal_weight_kg'] ?? 0).toDouble();
         _isLoading = false;
       });
     }
@@ -168,12 +171,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-
-                      // Stat cards
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          StatCard(
+                        children: [
+                          const StatCard(
                             title: 'Calorie',
                             value: '0 kcal',
                             subtext: 'of 1600',
@@ -182,12 +183,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           StatCard(
                             title: 'Target\nWeight',
-                            value: '0%',
-                            subtext: '62kg\n60kg',
+                            value: '${weightKg.toStringAsFixed(0)}kg',
+                            subtext:
+                                '${goalWeightKg.toStringAsFixed(0)}kg goal',
                             icon: Icons.track_changes,
                             progress: 0.0,
                           ),
-                          StatCard(
+                          const StatCard(
                             title: 'Water',
                             value: '0ml',
                             subtext: '1728ml',
@@ -197,7 +199,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 32),
                       const Text(
                         "Today's meal",
@@ -207,8 +208,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(height: 12),
-
-                      // Meal tabs
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children:
@@ -244,8 +243,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             }).toList(),
                       ),
                       const SizedBox(height: 16),
-
-                      // For you row
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -264,8 +261,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       const SizedBox(height: 16),
-
-                      // Meals list
                       SizedBox(
                         height: 210,
                         child: ListView(

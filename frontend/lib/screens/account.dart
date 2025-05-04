@@ -132,6 +132,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    // Header
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
@@ -162,19 +163,25 @@ class _AccountScreenState extends State<AccountScreen> {
                     ),
                     const SizedBox(height: 24),
 
-                    // Profile picture
+                    // Profile Picture
                     Center(
                       child: Stack(
                         children: [
                           CircleAvatar(
                             radius: 50,
+                            backgroundColor: Colors.grey.shade200,
                             backgroundImage:
                                 _profilePictureUrl.isNotEmpty
                                     ? NetworkImage(_profilePictureUrl)
-                                    : const AssetImage(
-                                          'assets/images/profilePic.jpg',
-                                        )
-                                        as ImageProvider,
+                                    : null,
+                            child:
+                                _profilePictureUrl.isEmpty
+                                    ? const Icon(
+                                      Icons.person,
+                                      size: 40,
+                                      color: Colors.grey,
+                                    )
+                                    : null,
                           ),
                           Positioned(
                             bottom: 0,
@@ -200,6 +207,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     ),
                     const SizedBox(height: 32),
 
+                    // Profile info
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
@@ -228,6 +236,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
                     const Spacer(),
 
+                    // Delete Account Button
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: OutlinedButton(

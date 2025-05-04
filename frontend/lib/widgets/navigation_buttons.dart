@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NavigationButtons extends StatelessWidget {
-  final VoidCallback onNext;
-  const NavigationButtons({required this.onNext, super.key});
+  final Future<void> Function()? onNext;
+
+  const NavigationButtons({super.key, required this.onNext});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,12 @@ class NavigationButtons extends StatelessWidget {
         ),
 
         ElevatedButton(
-          onPressed: onNext,
+          onPressed:
+              onNext != null
+                  ? () async {
+                    await onNext!();
+                  }
+                  : null,
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF008080),
             shape: RoundedRectangleBorder(

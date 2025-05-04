@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../widgets/step_progress.dart';
 import '../widgets/navigation_buttons.dart';
 
@@ -11,7 +14,35 @@ class UserGoalScreen extends StatefulWidget {
 
 class _UserGoalScreenState extends State<UserGoalScreen> {
   String? selectedGoal;
-  final goals = ['lose weight'];
+  final goals = ['Lose weight'];
+  String userName = 'there'; // fallback name
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsername();
+  }
+
+  Future<void> _loadUsername() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userDoc =
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
+
+      if (userDoc.exists && userDoc.data() != null) {
+        final data = userDoc.data()!;
+        if (data['username'] != null &&
+            data['username'].toString().isNotEmpty) {
+          setState(() {
+            userName = data['username'];
+          });
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +54,7 @@ class _UserGoalScreenState extends State<UserGoalScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-
-              // GOALS label + step progress
               const SizedBox(height: 50),
-
               const Center(
                 child: Text(
                   'GOALS',
@@ -38,25 +66,26 @@ class _UserGoalScreenState extends State<UserGoalScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              const StepProgress(currentStep: 2), // ✅ Using shared widget
-
+              const StepProgress(currentStep: 2),
               const SizedBox(height: 24),
 
-              const Text(
-                'Hey, Drive. Let’s start with your goals.',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              // 👋 Dynamic greeting
+              Text(
+                'Hey, $userName. Let’s start with your goals.',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
 
               const SizedBox(height: 32),
-
               const Text(
                 'Select the category that fits your goal best.',
                 style: TextStyle(fontSize: 16),
               ),
-
               const SizedBox(height: 24),
 
-              // Goal selection box
+              // 🟩 Selectable goal
               ...goals.map(
                 (goal) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
@@ -102,13 +131,9 @@ class _UserGoalScreenState extends State<UserGoalScreen> {
               ),
 
               const Spacer(),
-
               NavigationButtons(
-                onNext: () {
-                  Navigator.pushNamed(context, '/barriers');
-                },
+                onNext: () => Navigator.pushNamed(context, '/barriers'),
               ),
-
               const SizedBox(height: 16),
             ],
           ),

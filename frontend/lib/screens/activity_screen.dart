@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../widgets/step_progress.dart';
 import '../widgets/navigation_buttons.dart';
 
@@ -14,6 +17,32 @@ class _ActivityScreenState extends State<ActivityScreen> {
 
   final goals = ['Not very active', 'Lightly active', 'Active', 'Very active'];
 
+  Future<void> _saveActivityLevelAndContinue() async {
+    if (selectedGoal == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select your activity level')),
+      );
+      return;
+    }
+
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userDoc = FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid);
+      await userDoc.set({
+        'activity_level': selectedGoal,
+        'updated_at': FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true));
+
+      Navigator.pushNamed(context, '/userinfo');
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('User not logged in')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,11 +53,9 @@ class _ActivityScreenState extends State<ActivityScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              // GOALS label + step progress
               Column(
                 children: [
                   const SizedBox(height: 50),
-
                   const Text(
                     'GOALS',
                     style: TextStyle(
@@ -43,10 +70,11 @@ class _ActivityScreenState extends State<ActivityScreen> {
               ),
               const SizedBox(height: 24),
               const Text(
-                'what is your baseline activity level?',
+                'What is your baseline activity level?',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 32),
+
               ...goals.map(
                 (goal) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
@@ -90,10 +118,11 @@ class _ActivityScreenState extends State<ActivityScreen> {
                   ),
                 ),
               ),
+
               const Spacer(),
-              NavigationButtons(
-                onNext: () => Navigator.pushNamed(context, '/userinfo'),
-              ),
+
+              NavigationButtons(onNext: _saveActivityLevelAndContinue),
+
               const SizedBox(height: 16),
             ],
           ),

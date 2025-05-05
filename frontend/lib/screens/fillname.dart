@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../widgets/navigation_buttons.dart';
 import '../widgets/step_progress.dart';
 
@@ -23,7 +26,7 @@ class _FillNameScreenState extends State<FillNameScreen> {
             children: [
               const SizedBox(height: 16),
 
-              // GOALS Label + Step Progress with top spacing
+              // Header & Progress
               Column(
                 children: [
                   const SizedBox(height: 50),
@@ -85,8 +88,25 @@ class _FillNameScreenState extends State<FillNameScreen> {
               const Spacer(),
 
               NavigationButtons(
-                onNext: () {
-                  Navigator.pushNamed(context, '/usergoal');
+                onNext: () async {
+                  final user = FirebaseAuth.instance.currentUser;
+
+                  if (user != null && nameController.text.trim().isNotEmpty) {
+                    final userDoc = FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user.uid);
+
+                    await userDoc.set({
+                      'username': nameController.text.trim(),
+                      'updated_at': FieldValue.serverTimestamp(),
+                    }, SetOptions(merge: true));
+
+                    Navigator.pushNamed(context, '/usergoal');
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Please enter your name')),
+                    );
+                  }
                 },
               ),
 

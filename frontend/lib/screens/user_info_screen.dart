@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../widgets/step_progress.dart';
 import '../widgets/navigation_buttons.dart';
 
@@ -26,7 +29,6 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
               const SizedBox(height: 16),
 
               const SizedBox(height: 50),
-
               const Center(
                 child: Text(
                   'GOALS',
@@ -38,7 +40,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              const StepProgress(currentStep: 7), // ✅ Use reusable widget
+              const StepProgress(currentStep: 7),
 
               const SizedBox(height: 32),
               const Text(
@@ -126,7 +128,31 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
               const Spacer(),
 
               NavigationButtons(
-                onNext: () => Navigator.pushNamed(context, '/physical'),
+                onNext: () async {
+                  final user = FirebaseAuth.instance.currentUser;
+
+                  if (user != null &&
+                      selectedGender.isNotEmpty &&
+                      ageController.text.isNotEmpty) {
+                    final userDoc = FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user.uid);
+
+                    await userDoc.set({
+                      'gender': selectedGender,
+                      'age_years': int.tryParse(ageController.text.trim()),
+                      'updated_at': FieldValue.serverTimestamp(),
+                    }, SetOptions(merge: true));
+
+                    Navigator.pushNamed(context, '/physical');
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please select gender and enter age'),
+                      ),
+                    );
+                  }
+                },
               ),
 
               const SizedBox(height: 16),

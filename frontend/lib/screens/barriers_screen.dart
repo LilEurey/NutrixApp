@@ -42,12 +42,10 @@ class _BarriersScreenState extends State<BarriersScreen> {
             children: [
               const SizedBox(height: 16),
 
-              // GOALS label and step progress
               Column(
-                children: const [
+                children: [
                   const SizedBox(height: 50),
-
-                  Text(
+                  const Text(
                     'GOALS',
                     style: TextStyle(
                       fontSize: 16,
@@ -55,8 +53,8 @@ class _BarriersScreenState extends State<BarriersScreen> {
                       letterSpacing: 1,
                     ),
                   ),
-                  SizedBox(height: 12),
-                  StepProgress(currentStep: 3), // ✅ Updated step
+                  const SizedBox(height: 12),
+                  const StepProgress(currentStep: 3),
                 ],
               ),
 
@@ -76,7 +74,6 @@ class _BarriersScreenState extends State<BarriersScreen> {
 
               const SizedBox(height: 24),
 
-              // Multiple selection goals
               ...goals.map(
                 (goal) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
@@ -124,9 +121,7 @@ class _BarriersScreenState extends State<BarriersScreen> {
               const Spacer(),
 
               NavigationButtons(
-                onNext: () {
-                  Navigator.pushNamed(context, '/healthy');
-                },
+                onNext: () => Navigator.pushNamed(context, '/healthy'),
               ),
 
               const SizedBox(height: 16),

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -8,11 +10,50 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  String _name = 'Drive';
-  String _email = 'Nutrix66130@gmail.com';
+  String _name = '';
+  String _email = '';
+  String _profilePictureUrl = '';
+  bool _isLoading = true;
+
+  final user = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    if (user != null) {
+      final doc =
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user!.uid)
+              .get();
+      final data = doc.data();
+      if (data != null) {
+        setState(() {
+          _name = data['username'] ?? '';
+          _email = data['email'] ?? '';
+          _profilePictureUrl = data['profile_picture_url'] ?? '';
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _updateField(String key, String value) async {
+    if (user != null) {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .update({key: value, 'updated_at': FieldValue.serverTimestamp()});
+    }
+  }
 
   Future<void> _editField({
     required String title,
+    required String fieldKey,
     required String initialValue,
     required ValueChanged<String> onSaved,
     TextInputType keyboardType = TextInputType.text,
@@ -38,8 +79,39 @@ class _AccountScreenState extends State<AccountScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF004D40),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   setState(() => onSaved(temp));
+                  await _updateField(fieldKey, temp);
+                  Navigator.pop(context);
+                },
+                child: const Text('Save'),
+              ),
+            ],
+          ),
+    );
+  }
+
+  Future<void> _editProfilePicture() async {
+    String temp = _profilePictureUrl;
+    await showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Edit Profile Picture'),
+            content: TextFormField(
+              initialValue: temp,
+              decoration: const InputDecoration(hintText: 'Paste image URL'),
+              onChanged: (value) => temp = value,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  setState(() => _profilePictureUrl = temp);
+                  await _updateField('profile_picture_url', temp);
                   Navigator.pop(context);
                 },
                 child: const Text('Save'),
@@ -53,131 +125,141 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // AppBar with back button and centered title
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                  ),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Account',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF004D40),
+      body:
+          _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Header
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: GestureDetector(
+                              onTap: () => Navigator.pop(context),
+                              child: const Icon(Icons.arrow_back),
+                            ),
+                          ),
+                          const Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Account',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF004D40),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-            // Avatar with static asset image
-            Center(
-              child: Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: const AssetImage(
-                      'assets/images/profilePic.jpg',
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
+                    const SizedBox(height: 24),
+
+                    // Profile Picture
+                    Center(
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Colors.grey.shade200,
+                            backgroundImage:
+                                _profilePictureUrl.isNotEmpty
+                                    ? NetworkImage(_profilePictureUrl)
+                                    : null,
+                            child:
+                                _profilePictureUrl.isEmpty
+                                    ? const Icon(
+                                      Icons.person,
+                                      size: 40,
+                                      color: Colors.grey,
+                                    )
+                                    : null,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: GestureDetector(
+                              onTap: _editProfilePicture,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                                padding: const EdgeInsets.all(4),
+                                child: const Icon(
+                                  Icons.camera_alt,
+                                  size: 20,
+                                  color: Color(0xFF004D40),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      padding: const EdgeInsets.all(4),
-                      child: const Icon(
-                        Icons.camera_alt,
-                        size: 20,
-                        color: Color(0xFF004D40),
+                    ),
+                    const SizedBox(height: 32),
+
+                    // Profile info
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'Profile',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 32),
-            // Profile section header
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                'Profile',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
+                    const SizedBox(height: 12),
+
+                    _buildListItem(
+                      label: 'Name',
+                      value: _name,
+                      onTap:
+                          () => _editField(
+                            title: 'Name',
+                            fieldKey: 'username',
+                            initialValue: _name,
+                            onSaved: (v) => _name = v,
+                          ),
+                    ),
+                    _buildListItem(label: 'E-mail', value: _email, onTap: null),
+
+                    const Spacer(),
+
+                    // Delete Account Button
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/privacy');
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Colors.red),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
+                        child: const Text(
+                          'Delete Account',
+                          style: TextStyle(color: Colors.red, fontSize: 16),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                  ],
                 ),
               ),
-            ),
-            const SizedBox(height: 12),
-            // Name row (editable)
-            _buildListItem(
-              label: 'Name',
-              value: _name,
-              onTap:
-                  () => _editField(
-                    title: 'Name',
-                    initialValue: _name,
-                    onSaved: (v) => _name = v,
-                  ),
-            ),
-            // Email row (editable)
-            _buildListItem(
-              label: 'E-mail',
-              value: _email,
-              onTap:
-                  () => _editField(
-                    title: 'E-mail',
-                    initialValue: _email,
-                    keyboardType: TextInputType.emailAddress,
-                    onSaved: (v) => _email = v,
-                  ),
-            ),
-            const Spacer(),
-            // Logout button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: OutlinedButton(
-                onPressed: () {
-                  // Navigate back to login page and clear stack
-                  Navigator.of(
-                    context,
-                  ).pushNamedAndRemoveUntil('/', (route) => false);
-                },
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Color(0xFF004D40)),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                ),
-                child: const Text(
-                  'Log out',
-                  style: TextStyle(color: Color(0xFF004D40), fontSize: 16),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-          ],
-        ),
-      ),
     );
   }
 

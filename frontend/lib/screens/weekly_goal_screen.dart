@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../widgets/step_progress.dart';
 import '../widgets/navigation_buttons.dart';
 
@@ -19,6 +22,40 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
     'lose 1kg per week',
   ];
 
+  double? extractWeeklyGoal(String goalText) {
+    final regex = RegExp(r'[\d.]+');
+    final match = regex.firstMatch(goalText);
+    return match != null ? -double.parse(match.group(0)!) : null;
+  }
+
+  Future<void> _saveAndContinue() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null || selectedGoal == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select your weekly goal.')),
+      );
+      return;
+    }
+
+    final goalValue = extractWeeklyGoal(selectedGoal!);
+
+    if (goalValue == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Invalid goal format.')));
+      return;
+    }
+
+    final docRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
+
+    await docRef.set({
+      'weekly_goal_kg': goalValue,
+      'updated_at': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+
+    Navigator.pushNamed(context, '/account');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +66,6 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 50),
-              // GOALS label + step progress
               Column(
                 children: [
                   const Text(
@@ -94,9 +130,7 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
                 ),
               ),
               const Spacer(),
-              NavigationButtons(
-                onNext: () => Navigator.pushNamed(context, '/account'),
-              ),
+              NavigationButtons(onNext: _saveAndContinue),
               const SizedBox(height: 16),
             ],
           ),

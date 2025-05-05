@@ -8,7 +8,7 @@ class StepProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(10, (index) {
+      children: List.generate(9, (index) {
         return Container(
           width: 30,
           height: 5,

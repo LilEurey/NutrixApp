@@ -3,16 +3,21 @@ class AppUser {
   final String username;
   final String email;
   final String authProvider;
-  final String? gender; // 'male', 'female', or 'other'
+  final String? gender;
   final int? ageYears;
   final double? heightCm;
   final double? weightKg;
   final double? goalWeightKg;
   final double? weeklyGoalKg;
-  final String? activityLevel; // 'sedentary', 'light', etc.
+  final String? activityLevel;
   final String? profilePictureUrl;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final double? bmr;
+  final double? tdee;
+  final double? calorieDeficit;
+  final double? dailyCalorieGoal;
+  final double? waterGoalMl;
 
   AppUser({
     required this.id,
@@ -29,6 +34,11 @@ class AppUser {
     this.profilePictureUrl,
     required this.createdAt,
     required this.updatedAt,
+    this.bmr,
+    this.tdee,
+    this.calorieDeficit,
+    this.dailyCalorieGoal,
+    this.waterGoalMl,
   });
 
   Map<String, dynamic> toMap() {
@@ -47,6 +57,11 @@ class AppUser {
       'profile_picture_url': profilePictureUrl,
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
+      'BMR': bmr,
+      'TDEE': tdee,
+      'calorieDeficit': calorieDeficit,
+      'dailyCalorieGoal': dailyCalorieGoal,
+      'waterGoalMl': waterGoalMl,
     };
   }
 
@@ -66,6 +81,11 @@ class AppUser {
       profilePictureUrl: map['profile_picture_url'],
       createdAt: DateTime.parse(map['created_at']),
       updatedAt: DateTime.parse(map['updated_at']),
+      bmr: (map['BMR'] as num?)?.toDouble(),
+      tdee: (map['TDEE'] as num?)?.toDouble(),
+      calorieDeficit: (map['calorieDeficit'] as num?)?.toDouble(),
+      dailyCalorieGoal: (map['dailyCalorieGoal'] as num?)?.toDouble(),
+      waterGoalMl: (map['waterGoalMl'] as num?)?.toDouble(),
     );
   }
 }

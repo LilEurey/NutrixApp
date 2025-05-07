@@ -57,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String username = '';
   double weightKg = 0.0;
   double goalWeightKg = 0.0;
+  double waterGoalMl = 0.0;
   bool _isLoading = true;
 
   @override
@@ -80,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
         username = data['username'] ?? '';
         weightKg = (data['weight_kg'] ?? 0).toDouble();
         goalWeightKg = (data['goal_weight_kg'] ?? 0).toDouble();
+        waterGoalMl = (data['waterGoalMl'] ?? 0).toDouble();
         _isLoading = false;
       });
     }
@@ -189,10 +191,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             icon: Icons.track_changes,
                             progress: 0.0,
                           ),
-                          const StatCard(
+                          StatCard(
                             title: 'Water',
                             value: '0ml',
-                            subtext: '1728ml',
+                            subtext: '${waterGoalMl.toStringAsFixed(0)}ml',
                             icon: Icons.water_drop,
                             progress: 0.0,
                             isWaterCard: true,

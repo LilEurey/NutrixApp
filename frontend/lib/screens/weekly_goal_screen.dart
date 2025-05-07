@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../widgets/step_progress.dart';
 import '../widgets/navigation_buttons.dart';
+import '../services/user_calculation_service.dart';
 
 class WeeklyGoalScreen extends StatefulWidget {
   const WeeklyGoalScreen({super.key});
@@ -53,7 +54,11 @@ class _WeeklyGoalScreenState extends State<WeeklyGoalScreen> {
       'updated_at': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
 
-    Navigator.pushNamed(context, '/account');
+    // 🟢 Trigger calculation service here
+    await UserCalculationService().calculateAndStoreCalories(user.uid);
+
+    // Then navigate to new user screen
+    Navigator.pushNamed(context, '/newuser');
   }
 
   @override

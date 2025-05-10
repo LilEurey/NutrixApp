@@ -58,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double weightKg = 0.0;
   double goalWeightKg = 0.0;
   double waterGoalMl = 0.0;
+  double dailyCalorieGoal = 0.0;
   bool _isLoading = true;
 
   @override
@@ -82,6 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
         weightKg = (data['weight_kg'] ?? 0).toDouble();
         goalWeightKg = (data['goal_weight_kg'] ?? 0).toDouble();
         waterGoalMl = (data['waterGoalMl'] ?? 0).toDouble();
+        waterGoalMl = (data['waterGoalMl'] ?? 0).toDouble();
+        dailyCalorieGoal = (data['dailyCalorieGoal'] ?? 0).toDouble();
         _isLoading = false;
       });
     }
@@ -176,10 +179,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const StatCard(
+                          StatCard(
                             title: 'Calorie',
                             value: '0 kcal',
-                            subtext: 'of 1600',
+                            subtext:
+                                'of ${dailyCalorieGoal.toStringAsFixed(0)}',
                             icon: Icons.local_fire_department,
                             progress: 0.0,
                           ),
@@ -201,6 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
+
                       const SizedBox(height: 32),
                       const Text(
                         "Today's meal",

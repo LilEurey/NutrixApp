@@ -57,7 +57,7 @@ class NutrixApp extends StatelessWidget {
       routes: {
         '/': (context) => const WelcomeScreen(),
         '/homescreen': (context) => const HomeScreen(),
-        '/viewmore': (context) => const ViewMoreScreen(),
+        '/viewmore': (context) => const ViewMoreScreen(mealType: ''),
         '/authchoice': (context) => const AuthChoiceScreen(),
         '/userinfo': (context) => const UserInfoScreen(),
         '/physical': (context) => const PhysicalStatsScreen(),

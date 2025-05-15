@@ -8,6 +8,7 @@ class StatCard extends StatelessWidget {
   final IconData icon;
   final double progress;
   final bool isWaterCard;
+  final Stack customCenterWidget;
 
   const StatCard({
     super.key,
@@ -17,6 +18,7 @@ class StatCard extends StatelessWidget {
     required this.icon,
     required this.progress,
     this.isWaterCard = false,
+    required this.customCenterWidget,
   });
 
   @override
@@ -52,9 +54,7 @@ class StatCard extends StatelessWidget {
                   width: 60,
                   child: CustomPaint(
                     painter: _HalfCirclePainter(progress),
-                    child: Center(
-                      child: Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
-                    ),
+                    child: customCenterWidget,
                   ),
                 ),
           if (!isWaterCard)
@@ -94,7 +94,15 @@ class _HalfCirclePainter extends CustomPainter {
     const sweepAngle = math.pi;
 
     canvas.drawArc(rect, startAngle, sweepAngle, false, backgroundPaint);
-    canvas.drawArc(rect, startAngle, sweepAngle * progress, false, paint);
+    if (progress > 0) {
+      canvas.drawArc(
+        rect,
+        startAngle,
+        sweepAngle * progress.clamp(0.0, 1.0),
+        false,
+        paint,
+      );
+    }
   }
 
   @override

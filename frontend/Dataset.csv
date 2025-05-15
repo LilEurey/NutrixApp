@@ -1,0 +1,116 @@
+FoodID,Name,Kcal(g),Fat(g),Carb(g),Fiber(g),Protine,URL
+F005,Khao Kha Moo,520,28,45,2,22,assets/images/F005.png
+F008,Khao Moo Tod,600,30,50,2,32,assets/images/F008.png
+F009,Khao Moo Grob,550,32,45,1,20,assets/images/F009.png
+F010,Tom Yum Noodle,390,14,48,3,18,assets/images/F010.png
+F012,Rad Na,440,18,42,2,28,assets/images/F012.png
+F013,Pad Kee Mao,480,16,50,3,34,assets/images/F013.png
+F018,Curry Chicken ,500,24,44,2,27,assets/images/F018.png
+F019,Larb Moo,350,15,12,2,42,assets/images/F019.png
+F020,Nam Tok Moo,380,14,18,2,46,assets/images/F020.png
+F022,Gaeng Keow Wan Gai,550,25,48,2,33,assets/images/F022.png
+F023,Gaeng Panang Moo,530,26,42,2,32,assets/images/F023.png
+F024,Khao Soi Gai,600,27,55,3,34,assets/images/F024.png
+F025,Guay Tiew Gai Tun,390,10,48,2,27,assets/images/F025.png
+F026,Guay Tiew Moo,410,12,45,3,30,assets/images/F026.png
+F027,Bamee Moo Daeng,470,18,50,2,27,assets/images/F027.png
+F028,Moo Palo,530,26,45,2,29,assets/images/F028.png
+F030,Massaman Curry with Rice,600,30,55,3,28,assets/images/F030.png
+D001,Butterfly Pea,80,0,18,0,2,assets/images/D001.png
+D002,Cha Yen,200,6,30,0,6,assets/images/D002.png
+D003,Oliang,60,0,12,0,3,assets/images/D003.png
+D004,Lime Tea,90,0,22,0,0,assets/images/D004.png
+D005,Bael Juice,110,0,25,1,2,assets/images/D005.png
+D006,Nam Krajeab,90,0,20,0,2,assets/images/D006.png
+D007,Coconut Water,80,1,17,1,1,assets/images/D007.png
+D008,Nam King,100,0,23,0,2,assets/images/D008.png
+F031,Grilled Pork Neck,450,25,10,1,46,assets/images/F031.png
+F032,Tom Yum Goong,350,12,20,2,40,assets/images/F032.png
+F033,Tom Kha Gai,360,14,18,2,40,assets/images/F033.png
+F034,Nam Prik Ong,400,16,30,4,34,assets/images/F034.png
+F035,Nam Prik Noom,390,15,25,3,39,assets/images/F035.png
+F036,Thai BBQ Chicken,460,20,12,2,58,assets/images/F036.png
+F037,Fried Mackerel,480,24,20,2,46,assets/images/F037.png
+F038,Steamed Fish,350,10,15,1,50,assets/images/F038.png
+F039,Fried Rice with Shrimp,520,22,50,3,30,assets/images/F039.png
+F041,Grilled Fish with Herbs,400,16,18,2,46,assets/images/F041.png
+F042,Stir-fried Chicken with Ginger,420,18,25,2,40,assets/images/F042.png
+F043,Thai Basil Duck,500,24,35,2,36,assets/images/F043.png
+F044,Shrimp in Tamarind Sauce,460,20,30,2,40,assets/images/F044.png
+F045,Stir-fried Clams,430,16,25,1,46,assets/images/F045.png
+B001,Pumpkin Soup,320,10,28,2,30,assets/images/B001.png
+F046,Papaya Salad,250,8,20,3,24,assets/images/F046.png
+B002,Mushrooms Oyster Sauce,340,10,18,2,44,assets/images/B002.png
+F047,Bitter Melon Soup with Pork,360,14,20,2,38,assets/images/F047.png
+B003,Stuffed Omelet with Vegetables,420,18,30,2,34,assets/images/B003.png
+F048,Grilled Shrimp with Spicy Sauce,400,14,18,1,50,assets/images/F048.png
+F049,Chicken Curry with Pumpkin,520,22,35,3,46,assets/images/F049.png
+F050,Thai Red Curry Tofu,480,20,30,3,45,assets/images/F050.png
+B004,Clear Soup with Tofu,300,8,15,2,42,assets/images/B004.png
+F051,Thai Chicken Satay,460,24,22,1,39,assets/images/F051.png
+F053,Thai Sausage,500,30,20,1,38,assets/images/F053.png
+F054,Chicken Lettuce,300,12,10,2,38,assets/images/F054.png
+F055,Stir-fried Baby Corn,340,10,25,3,38,assets/images/F055.png
+F056,Tofu in Spicy Chili Sauce,380,14,28,3,36,assets/images/F056.png
+F057,Fried Tofu,400,18,20,2,40,assets/images/F057.png
+B005,Grilled Eggplant Salad,360,12,18,4,45,assets/images/B005.png
+F058,Spicy Thai Mackerel Salad,390,16,22,2,40,assets/images/F058.png
+F059,Chicken with Cashew Nut,500,25,28,2,41,assets/images/F059.png
+D009,Lemon Water,15,0,4,0,0,assets/images/D009.png
+D010,Almond Milk,30,2,1,1,2,assets/images/D010.png
+D011,Matcha Latte,80,4,6,1,5,assets/images/D011.png
+D012,Vegetable Juice,60,0,12,2,3,assets/images/D012.png
+D013,Soy Milk,100,3,4,1,14,assets/images/D013.png
+B006,Khao Tom Moo,200,6,1,28,36,assets/images/B006.png
+B007,Jok Moo Sai Khai,250,8,1,30,44,assets/images/B007.png
+B008,Khao Niew Moo Ping,390,15,2,45,62,assets/images/B008.png
+B010,Khao Pad Khai,450,16,2,50,74,assets/images/B010.png
+B011,Khai Krata,400,20,1,35,54,assets/images/B011.png
+B012,Pa Thong Ko,300,22,1,20,24,assets/images/B012.png
+B013,Salapao Moo,280,9,1,38,49,assets/images/B013.png
+B014,Khanom Jeeb,230,12,1,20,30,assets/images/B014.png
+B015,Khao Tom Goong,190,5,1,26,35,assets/images/B015.png
+D014,Tea,80,2,0,6,16,assets/images/D014.png
+D015,Black coffee ,10,0,0,0,2,assets/images/D015.png
+D016,Ovaltine,180,5,1,22,33,assets/images/D016.png
+D017,Milk,160,6,0,12,26,assets/images/D017.png
+D018,Banana Smoothie,220,7,2,30,37,assets/images/D018.png
+F060,Khao Kluk Kapi,540,25,50,3,29,assets/images/F060.png
+F061,Pad Cha Talay,380,12,3,30,65,assets/images/F061.png
+F062,Pad Pak Bung,150,8,4,10,16,assets/images/F062.png
+F063,Pad Prik Gaeng Moo,400,22,3,25,48,assets/images/F063.png
+B019,Khao Niew Gai Yang,460,16,2,48,77,assets/images/B019.png
+F064,Pad Woon Sen,390,14,3,35,63,assets/images/F064.png
+F065,Pad Nor Mai Farang,180,10,4,15,18,assets/images/F065.png
+F066,Yam Woon Sen,350,12,2,30,58,assets/images/F066.png
+F067,Yam Talay,360,14,2,32,56,assets/images/F067.png
+F068,Hor Mok Talay,420,20,3,18,57,assets/images/F068.png
+B020,Khao Tom Gai,300,10,1,40,52,assets/images/B020.png
+B021,Khao Tom Pla,280,9,1,38,49,assets/images/B021.png
+F069,Tom Yum Talay,290,11,2,20,46,assets/images/F069.png
+F070,Kaeng Som,310,13,3,22,45,assets/images/F070.png
+F071,Nam Prik Kapi,250,9,5,15,37,assets/images/F071.png
+F072,Pad Pak,220,7,4,18,35,assets/images/F072.png
+F073,Pak Boong Tod Krob,310,20,3,25,30,assets/images/F073.png
+B022,Kai Yang,370,15,1,35,58,assets/images/B022.png
+F074,Sai Ua,420,28,1,5,41,assets/images/F074.png
+F075,Kanom Jeen,390,14,2,40,64,assets/images/F075.png
+B023,Scramble & Toast,350,20,25,2,18,assets/images/B023.png
+B024,Pancake Syrup,450,15,60,2,19,assets/images/B024.png
+B025,French Toast,380,14,45,2,18,assets/images/B025.png
+B026,Oat & Berries,320,8,50,5,12,assets/images/B026.png
+B027,Yogurt Granola,300,10,40,4,12,assets/images/B027.png
+B028,Bacon & Eggs,400,30,2,0,30,assets/images/B028.png
+B029,Avocado Toast,340,18,28,6,16,assets/images/B029.png
+B030,Breakfast Wrap,450,22,40,3,23,assets/images/B030.png
+B031,Full English,550,28,35,4,40,assets/images/B031.png
+B032,Salmon Bagel,420,16,38,3,31,assets/images/B032.png
+B033,Egg Muffin,390,18,30,2,27,assets/images/B033.png
+B034,Croissant Ham,420,22,35,2,20,assets/images/B034.png
+B035,Waffle & Berries,460,16,55,3,24,assets/images/B035.png
+B036,Toast & Jam,310,9,42,2,15,assets/images/B036.png
+B037,Spinach Omelet,330,14,20,3,31,assets/images/B037.png
+B039,Granola Bowl,340,12,45,5,13,assets/images/B039.png
+B040,Egg & Avocado,360,19,18,4,29,assets/images/B040.png
+B041,Toasted Bagel,380,11,50,3,20,assets/images/B041.png
+B042,Banana Oatmeal,320,8,52,5,10,assets/images/B042.png

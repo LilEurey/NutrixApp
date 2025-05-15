@@ -8,7 +8,7 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # Upload CSV data
-with open('Dataset - Sheet1-2.csv', newline='', encoding='utf-8') as csvfile:
+with open('Dataset.csv', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         doc_data = {

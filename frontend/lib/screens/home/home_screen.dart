@@ -3,9 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/stat_card.dart';
+import '../../storage/meal_summary_storage.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  static final GlobalKey<_HomeScreenState> homeScreenKey =
+      GlobalKey<_HomeScreenState>();
+  HomeScreen({Key? key}) : super(key: homeScreenKey);
+
+  static void refreshCalories() {
+    homeScreenKey.currentState?._updateLoggedCalories();
+  }
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -24,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String username = '';
   double waterGoalMl = 0.0;
   double weightKg = 0.0;
+  double loggedCalories = 0.0;
 
   bool _isLoading = true;
 
@@ -31,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     Future.wait([_loadUserData(), _loadMealData()]).then((_) {
+      _updateLoggedCalories();
       setState(() {
         _isLoading = false;
       });
@@ -54,6 +63,41 @@ class _HomeScreenState extends State<HomeScreen> {
         goalWeightKg = (data['goal_weight_kg'] ?? 0).toDouble();
         dailyCalorieGoal = (data['dailyCalorieGoal'] ?? 0).toDouble();
         waterGoalMl = (data['waterGoalMl'] ?? 0).toDouble();
+      });
+      _updateLoggedCalories();
+    }
+  }
+
+  Future<void> _updateLoggedCalories() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    final today = DateTime.now();
+    final formattedDate =
+        "${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
+
+    final snapshot =
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .collection('logged_meals')
+            .doc(formattedDate)
+            .get();
+
+    if (snapshot.exists) {
+      final data = snapshot.data();
+      final meals = data?['meals'] as List<dynamic>? ?? [];
+      double sum = 0.0;
+      for (var meal in meals) {
+        sum += (meal['kcal'] ?? 0).toDouble();
+      }
+
+      setState(() {
+        loggedCalories = sum;
+      });
+    } else {
+      setState(() {
+        loggedCalories = 0.0;
       });
     }
   }
@@ -119,12 +163,12 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             CircleAvatar(
               radius: 45,
-              backgroundImage:
-                  (meal['imageUrl'] != null &&
-                          meal['imageUrl'].toString().isNotEmpty)
-                      ? NetworkImage(meal['imageUrl'])
-                      : const AssetImage('assets/images/placeholder.png')
-                          as ImageProvider,
+              backgroundImage: AssetImage(
+                meal['imageUrl'] != null &&
+                        meal['imageUrl'].toString().isNotEmpty
+                    ? meal['imageUrl']
+                    : 'assets/images/placeholder.png',
+              ),
               onBackgroundImageError:
                   (_, __) => const Icon(Icons.broken_image, size: 45),
             ),
@@ -154,7 +198,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(width: 6),
-                  const Icon(Icons.add, size: 16),
+                  GestureDetector(
+                    onTap: () {
+                      MealSummaryStorage().addMeal(meal);
+                      setState(() {
+                        mealData[selectedMeal]!.remove(meal);
+                      });
+                    },
+                    child: const Icon(Icons.add, color: Colors.black),
+                  ),
                 ],
               ),
             ),
@@ -242,11 +294,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           StatCard(
                             title: 'Calorie',
-                            value: '0 kcal',
-                            subtext:
-                                'of ${dailyCalorieGoal.toStringAsFixed(0)}',
+                            value: '${loggedCalories.toStringAsFixed(0)} kcal',
+                            subtext: 'of ${dailyCalorieGoal.toStringAsFixed(0)}',
                             icon: Icons.local_fire_department,
-                            progress: 0.0,
+                            progress: dailyCalorieGoal > 0
+                                ? (loggedCalories / dailyCalorieGoal).clamp(0.0, 1.0)
+                                : 0.0,
+                            customCenterWidget: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Text(
+                                  '${loggedCalories.toStringAsFixed(0)} kcal',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    color: Colors.teal,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           StatCard(
                             title: 'Target\nWeight',
@@ -255,6 +322,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 '${goalWeightKg.toStringAsFixed(0)}kg goal',
                             icon: Icons.track_changes,
                             progress: 0.0,
+                            customCenterWidget: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Text(
+                                  "${weightKg.toStringAsFixed(0)}kg",
+                                  style: const TextStyle(
+                                    color: Colors.teal,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           StatCard(
                             title: 'Water',
@@ -263,6 +343,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             icon: Icons.water_drop,
                             progress: 0.0,
                             isWaterCard: true,
+                            customCenterWidget: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Text(
+                                  "0ml",
+                                  style: const TextStyle(
+                                    color: Colors.teal,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

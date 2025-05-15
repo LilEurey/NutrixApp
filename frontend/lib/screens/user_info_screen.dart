@@ -98,33 +98,6 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                 ),
               ),
 
-              const SizedBox(height: 24),
-              const Text(
-                'Where do you live?',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                value: selectedLocation,
-                items:
-                    ['Bangkok', 'Chiang Mai', 'Phuket']
-                        .map(
-                          (city) =>
-                              DropdownMenuItem(value: city, child: Text(city)),
-                        )
-                        .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedLocation = value;
-                  });
-                },
-              ),
-
               const Spacer(),
 
               NavigationButtons(

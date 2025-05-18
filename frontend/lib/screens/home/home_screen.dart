@@ -19,6 +19,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String _getGreetingPeriod() {
+    final hour = DateTime.now().hour;
+    if (hour >= 5 && hour < 12) {
+      return 'morning';
+    } else if (hour >= 12 && hour < 17) {
+      return 'afternoon';
+    } else if (hour <= 17 && hour < 21) {
+      return 'evening';
+    } else {
+      return 'night';
+    }
+  }
+
   double dailyCalorieGoal = 0.0;
   double goalWeightKg = 0.0;
   Map<String, List<Map<String, dynamic>>> mealData = {
@@ -86,14 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (snapshot.exists) {
       final data = snapshot.data();
-      final meals = data?['meals'] as List<dynamic>? ?? [];
-      double sum = 0.0;
-      for (var meal in meals) {
-        sum += (meal['kcal'] ?? 0).toDouble();
-      }
-
+      final totalKcal = (data?['totalKcal'] ?? 0).toDouble();
       setState(() {
-        loggedCalories = sum;
+        loggedCalories = totalKcal;
       });
     } else {
       setState(() {
@@ -274,8 +282,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Good morning',
+                      Text(
+                        'Good ${_getGreetingPeriod()},',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w500,
@@ -295,11 +303,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           StatCard(
                             title: 'Calorie',
                             value: '${loggedCalories.toStringAsFixed(0)} kcal',
-                            subtext: 'of ${dailyCalorieGoal.toStringAsFixed(0)}',
+                            subtext:
+                                'of ${dailyCalorieGoal.toStringAsFixed(0)}',
                             icon: Icons.local_fire_department,
-                            progress: dailyCalorieGoal > 0
-                                ? (loggedCalories / dailyCalorieGoal).clamp(0.0, 1.0)
-                                : 0.0,
+                            progress:
+                                dailyCalorieGoal > 0
+                                    ? (loggedCalories / dailyCalorieGoal).clamp(
+                                      0.0,
+                                      1.0,
+                                    )
+                                    : 0.0,
                             customCenterWidget: Stack(
                               alignment: Alignment.center,
                               children: [
@@ -338,7 +351,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           StatCard(
                             title: 'Water',
-                            value: '0ml',
+                            value: '${waterGoalMl.toStringAsFixed(0)}ml',
                             subtext: '${waterGoalMl.toStringAsFixed(0)}ml',
                             icon: Icons.water_drop,
                             progress: 0.0,
@@ -347,7 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               alignment: Alignment.center,
                               children: [
                                 Text(
-                                  "0ml",
+                                  "${waterGoalMl.toStringAsFixed(0)}ml",
                                   style: const TextStyle(
                                     color: Colors.teal,
                                     fontWeight: FontWeight.bold,
